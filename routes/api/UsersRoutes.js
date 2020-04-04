@@ -20,7 +20,7 @@ const middleware = passport.authenticate("jwt", { session: false });
 // Routes
 
 // @Get All User Data
-router.get("/", middleware, (req, res) => {
+router.get("/", (req, res) => {
   User.find().then(result => {
     res.send(result);
   });
