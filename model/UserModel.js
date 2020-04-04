@@ -18,7 +18,7 @@ const schema = new Schema({
   },
   usr_userType: {
     type: String,
-    default: "USER"
+    default: "user"
   },
   usr_fullname: {
     type: String,

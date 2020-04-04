@@ -4,8 +4,8 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
   rm_type: {
-    type: String,
-    default: ""
+    type: Schema.Types.ObjectId,
+    ref: "RoomsType"
   },
   rm_available: {
     type: Boolean,
@@ -24,6 +24,10 @@ const schema = new Schema({
       type: Number,
       default: 0
     }
+  },
+  rm_price: {
+    type: Number,
+    default: 0
   },
   rm_inventory: []
 });
