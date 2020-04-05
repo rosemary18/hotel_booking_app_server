@@ -21,7 +21,7 @@ const middleware = passport.authenticate("jwt", { session: false });
 
 // @Get All User Data
 router.get("/", (req, res) => {
-  User.find().then(result => {
+  User.find().then((result) => {
     res.send(result);
   });
   /* const dataFill = new User({
@@ -52,11 +52,11 @@ router.post("/login", (req, res) => {
   }
 
   if (!isEmpty(errors)) {
-    return res.send(errors);
+    return res.status(400).send(errors);
   }
 
   User.findOne({ usr_email: email })
-    .then(result => {
+    .then((result) => {
       if (result) {
         if (bcrypt.compareSync(password, result.usr_password)) {
           if (result.usr_userType === userType) {
@@ -65,7 +65,7 @@ router.post("/login", (req, res) => {
               username: result.usr_username,
               email: result.usr_email,
               fullname: result.usr_fullname,
-              avatar: result.usr_avatar
+              avatar: result.usr_avatar,
             };
 
             jwt.sign(
@@ -76,7 +76,7 @@ router.post("/login", (req, res) => {
                 res.json({
                   success: true,
                   token: "Bearer " + token,
-                  user: payload
+                  user: payload,
                 });
               }
             );
@@ -90,7 +90,7 @@ router.post("/login", (req, res) => {
         }
       } else {
         User.findOne({ usr_username: email })
-          .then(resUser => {
+          .then((resUser) => {
             if (resUser) {
               if (bcrypt.compareSync(password, resUser.usr_password)) {
                 if (resUser.usr_userType === userType) {
@@ -99,7 +99,7 @@ router.post("/login", (req, res) => {
                     username: resUser.usr_username,
                     email: resUser.usr_email,
                     fullname: resUser.usr_fullname,
-                    avatar: resUser.usr_avatar
+                    avatar: resUser.usr_avatar,
                   };
 
                   jwt.sign(
@@ -110,7 +110,7 @@ router.post("/login", (req, res) => {
                       res.json({
                         success: true,
                         token: "Bearer " + token,
-                        user: payload
+                        user: payload,
                       });
                     }
                   );
@@ -127,10 +127,10 @@ router.post("/login", (req, res) => {
               return res.status(404).json(errors);
             }
           })
-          .catch(err => res.json(err));
+          .catch((err) => res.json(err));
       }
     })
-    .catch(err => res.json(err));
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
