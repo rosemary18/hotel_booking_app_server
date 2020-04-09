@@ -71,7 +71,7 @@ router.post("/login", (req, res) => {
             jwt.sign(
               payload,
               key.SECRET_OR_KEY,
-              { expiresIn: 3600 },
+              { expiresIn: null },
               (err, token) => {
                 res.json({
                   success: true,
@@ -81,7 +81,7 @@ router.post("/login", (req, res) => {
               }
             );
           } else {
-            errors.email = `You are not an ${userType}."`;
+            errors.email = `You are not an ${userType}`;
             return res.status(404).json(errors);
           }
         } else {
