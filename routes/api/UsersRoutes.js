@@ -102,18 +102,13 @@ router.post("/login", (req, res) => {
                     avatar: resUser.usr_avatar,
                   };
 
-                  jwt.sign(
-                    payload,
-                    key.SECRET_OR_KEY,
-                    { expiresIn: "9999 years" },
-                    (err, token) => {
-                      res.json({
-                        success: true,
-                        token: "Bearer " + token,
-                        user: payload,
-                      });
-                    }
-                  );
+                  jwt.sign(payload, key.SECRET_OR_KEY, (err, token) => {
+                    res.json({
+                      success: true,
+                      token: "Bearer " + token,
+                      user: payload,
+                    });
+                  });
                 } else {
                   errors.email = `You are not an ${userType}."`;
                   return res.status(404).json(errors);
