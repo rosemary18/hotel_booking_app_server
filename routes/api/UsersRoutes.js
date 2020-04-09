@@ -65,6 +65,7 @@ router.post("/login", (req, res) => {
               username: result.usr_username,
               email: result.usr_email,
               fullname: result.usr_fullname,
+              userType: userType,
               avatar: result.usr_avatar,
             };
 
@@ -94,6 +95,7 @@ router.post("/login", (req, res) => {
                     username: resUser.usr_username,
                     email: resUser.usr_email,
                     fullname: resUser.usr_fullname,
+                    userType: userType,
                     avatar: resUser.usr_avatar,
                   };
 
