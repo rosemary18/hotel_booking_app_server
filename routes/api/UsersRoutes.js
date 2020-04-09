@@ -20,7 +20,7 @@ const middleware = passport.authenticate("jwt", { session: false });
 // Routes
 
 // @Get All User Data
-router.get("/", (req, res) => {
+router.get("/", middleware, (req, res) => {
   User.find().then((result) => {
     res.send(result);
   });
@@ -68,18 +68,13 @@ router.post("/login", (req, res) => {
               avatar: result.usr_avatar,
             };
 
-            jwt.sign(
-              payload,
-              key.SECRET_OR_KEY,
-              { expiresIn: null },
-              (err, token) => {
-                res.json({
-                  success: true,
-                  token: "Bearer " + token,
-                  user: payload,
-                });
-              }
-            );
+            jwt.sign(payload, key.SECRET_OR_KEY, (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token,
+                user: payload,
+              });
+            });
           } else {
             errors.email = `You are not an ${userType}`;
             return res.status(404).json(errors);
